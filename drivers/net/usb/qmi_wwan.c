@@ -1760,6 +1760,7 @@ static int qmi_wwan_manage_power(struct usbnet *dev, int on)
 	struct qmi_wwan_state *info = (void *)&dev->data;
 	int rv;
 
+	printk("[biaowang:%s] on\n",__func__,on);
 	dev_dbg(&dev->intf->dev, "%s() pmcount=%d, on=%d\n", __func__,
 		atomic_read(&info->pmcount), on);
 
@@ -1780,6 +1781,7 @@ static int qmi_wwan_cdc_wdm_manage_power(struct usb_interface *intf, int on)
 {
 	struct usbnet *dev = usb_get_intfdata(intf);
 
+	printk("[biaowang:%s]\n",__func__);
 	/* can be called while disconnecting */
 	if (!dev)
 		return 0;
@@ -1793,6 +1795,7 @@ static int qmi_wwan_register_subdriver(struct usbnet *dev)
 	struct usb_driver *subdriver = NULL;
 	struct qmi_wwan_state *info = (void *)&dev->data;
 
+	printk("[biaowang:%s]\n",__func__);
 	/* collect bulk endpoints */
 	rv = usbnet_get_endpoints(dev, info->data);
 	if (rv < 0)
@@ -1836,6 +1839,7 @@ static int qmi_wwan_bind(struct usbnet *dev, struct usb_interface *intf)
 	struct usb_driver *driver = driver_of(intf);
 	struct qmi_wwan_state *info = (void *)&dev->data;
 
+	printk("[biaowang:%s]\n",__func__);
 	BUILD_BUG_ON((sizeof(((struct usbnet *)0)->data) <
 		      sizeof(struct qmi_wwan_state)));
 
